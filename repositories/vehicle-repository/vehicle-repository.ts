@@ -77,7 +77,8 @@ class VehicleRepository {
           return this._isMileageGreater(parseInt(`${filterValue}`), vehicleInfo.mileage);
 
         case Filters.MILEAGELOWER:
-          return;
+          return this._isMileageLower(parseInt(`${filterValue}`), vehicleInfo.mileage);
+
         case Filters.PRICEGREATER:
           return;
         case Filters.PRICELOWER:
