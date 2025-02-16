@@ -77,6 +77,12 @@ class VehicleRepository {
     return new Date(vehicleInfoValue).getFullYear() < new Date(filterValue).getFullYear();
   }
 
+  private _isSameColour(filterValue: string[], vehicleInfoValue: Vehicle["colour"]): boolean {
+    return filterValue.some((colour) =>
+      vehicleInfoValue.toLowerCase().includes(colour.toLowerCase())
+    );
+  }
+
   private _applyFilters(filters: FilterQuery, vehicleInfo: Vehicle) {
     return Object.keys(filters).every((key) => {
       const filterValue = filters[key as keyof typeof filters];
@@ -125,7 +131,10 @@ class VehicleRepository {
           return this._isYearLower(`${filterValue}`, vehicleInfo.date_first_reg);
 
         case Filters.COLOUR:
-          return;
+          if (!Array.isArray(filterValue)) {
+            throw new TypeError("Invalid value supplied for colour, supply list of colours.");
+          }
+          return this._isSameColour(filterValue, vehicleInfo.colour);
       }
     });
   }

@@ -29,4 +29,4 @@ export enum Filters {
   COLOUR = "colour",
 }
 
-export type FilterQuery = Partial<Record<Filters, string | number>>;
+export type FilterQuery = Partial<Record<Filters, string | number | string[]>>;

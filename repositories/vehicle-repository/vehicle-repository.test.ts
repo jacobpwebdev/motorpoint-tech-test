@@ -169,3 +169,24 @@ test("Filter by year lower returns valid vehicle list and filters correctly", ()
   );
   expect(vehicleList.length).toEqual(filteredDataSet.length);
 });
+
+test("Filter by colour returns valid vehicle list and filters correctly", () => {
+  const vehicleList = VehicleRepo.getAllFiltered({
+    colour: ["red", "black"],
+  });
+  expect(Array.isArray(vehicleList));
+
+  const filteredDataSet = vehicles.filter(
+    ({ colour }) => colour.toLowerCase().includes("red") || colour.toLowerCase().includes("black")
+  );
+
+  expect(vehicleList.length).toEqual(filteredDataSet.length);
+});
+
+test("Filter by colour throws if incorrect value passed", () => {
+  expect(() =>
+    VehicleRepo.getAllFiltered({
+      colour: "red",
+    })
+  ).toThrow(TypeError);
+});
