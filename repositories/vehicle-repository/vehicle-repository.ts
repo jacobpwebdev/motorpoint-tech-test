@@ -43,8 +43,12 @@ class VehicleRepository {
     return vehicleInfoValue > filterValue;
   }
 
-  private _isMileageLower(filterValue: number, vehicleInfoValue: Vehicle["engine_size"]): boolean {
+  private _isMileageLower(filterValue: number, vehicleInfoValue: Vehicle["mileage"]): boolean {
     return vehicleInfoValue < filterValue;
+  }
+
+  private _isPriceGreater(filterValue: number, vehicleInfoValue: Vehicle["engine_size"]): boolean {
+    return vehicleInfoValue > filterValue;
   }
 
   private _applyFilters(filters: FilterQuery, vehicleInfo: Vehicle) {
@@ -80,7 +84,8 @@ class VehicleRepository {
           return this._isMileageLower(parseInt(`${filterValue}`), vehicleInfo.mileage);
 
         case Filters.PRICEGREATER:
-          return;
+          return this._isPriceGreater(parseInt(`${filterValue}`), vehicleInfo.price);
+
         case Filters.PRICELOWER:
           return;
         case Filters.TRANSMISSION:

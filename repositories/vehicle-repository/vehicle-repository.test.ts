@@ -120,7 +120,7 @@ test("Filter by price greater than returns valid vehicle list and filters correc
   });
   expect(Array.isArray(vehicleList));
 
-  const filteredDataSet = vehicles.filter(({ price }) => price > 20114);
+  const filteredDataSet = vehicles.filter(({ price }) => price > 15499);
   expect(vehicleList.length).toEqual(filteredDataSet.length);
 });
 
