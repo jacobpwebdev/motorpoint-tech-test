@@ -71,7 +71,7 @@ class VehicleRepository {
           return this._isEngineSizeGreater(parseInt(`${filterValue}`), vehicleInfo.engine_size);
 
         case Filters.ENGINESIZELOWER:
-          return;
+          return this._isEngineSizeLower(parseInt(`${filterValue}`), vehicleInfo.engine_size);
         case Filters.MILEAGEGREATER:
           return;
         case Filters.MILEAGELOWER:
