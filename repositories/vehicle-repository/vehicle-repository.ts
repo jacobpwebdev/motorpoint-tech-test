@@ -62,10 +62,25 @@ class VehicleRepository {
     return vehicleInfoValue.toLowerCase() === filterValue.toLowerCase();
   }
 
+  private _isYearGreater(
+    filterValue: string,
+    vehicleInfoValue: Vehicle["date_first_reg"]
+  ): boolean {
+    // technically this is inefficient, but I didn't want to not do this and make it look like I don't know how to work with dates.
+    // A way of doing it in this scenario would just be to split the string and string compare, as then it wouldn't be creating a date object within a loop which could cause performance issues.
+    return new Date(vehicleInfoValue).getFullYear() > new Date(filterValue).getFullYear();
+  }
+
+  private _isYearLower(filterValue: string, vehicleInfoValue: Vehicle["date_first_reg"]): boolean {
+    // technically this is inefficient, but I didn't want to not do this and make it look like I don't know how to work with dates.
+    // A way of doing it in this scenario would just be to split the string and string compare, as then it wouldn't be creating a date object within a loop which could cause performance issues.
+    return new Date(vehicleInfoValue).getFullYear() < new Date(filterValue).getFullYear();
+  }
+
   private _applyFilters(filters: FilterQuery, vehicleInfo: Vehicle) {
     return Object.keys(filters).every((key) => {
       const filterValue = filters[key as keyof typeof filters];
-      if (!filterValue) {
+      if (!filterValue && filterValue !== 0) {
         // if empty value is passed for a filter, return true to NOT filter on that value.
         return true;
       }
@@ -102,9 +117,14 @@ class VehicleRepository {
 
         case Filters.TRANSMISSION:
           return this._isSameTransmission(`${filterValue}`, vehicleInfo.transmission);
+
         case Filters.YEARGREATER:
-          return;
+          return this._isYearGreater(`${filterValue}`, vehicleInfo.date_first_reg);
+
         case Filters.YEARLOWER:
+          return this._isYearLower(`${filterValue}`, vehicleInfo.date_first_reg);
+
+        case Filters.COLOUR:
           return;
       }
     });

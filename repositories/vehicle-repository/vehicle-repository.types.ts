@@ -26,6 +26,7 @@ export enum Filters {
   YEARLOWER = "yearLower",
   CO2LOWER = "co2Lower",
   CO2GREATER = "co2Greater",
+  COLOUR = "colour",
 }
 
 export type FilterQuery = Partial<Record<Filters, string | number>>;
