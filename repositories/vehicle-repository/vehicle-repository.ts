@@ -55,6 +55,13 @@ class VehicleRepository {
     return vehicleInfoValue < filterValue;
   }
 
+  private _isSameTransmission(
+    filterValue: string,
+    vehicleInfoValue: Vehicle["transmission"]
+  ): boolean {
+    return vehicleInfoValue.toLowerCase() === filterValue.toLowerCase();
+  }
+
   private _applyFilters(filters: FilterQuery, vehicleInfo: Vehicle) {
     return Object.keys(filters).every((key) => {
       const filterValue = filters[key as keyof typeof filters];
@@ -94,7 +101,7 @@ class VehicleRepository {
           return this._isPriceLower(parseInt(`${filterValue}`), vehicleInfo.price);
 
         case Filters.TRANSMISSION:
-          return;
+          return this._isSameTransmission(`${filterValue}`, vehicleInfo.transmission);
         case Filters.YEARGREATER:
           return;
         case Filters.YEARLOWER:
