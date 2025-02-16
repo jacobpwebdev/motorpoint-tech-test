@@ -4,12 +4,10 @@ import { VehicleRepository, Vehicle } from "@/vehicles";
 
 const VehicleRepo = new VehicleRepository();
 
-// If fetching data instead of local file, would need to mock the responses here instead of importing the file & mock it for the instance of VehicleRepository.
+// If fetching data from API/DB instead of local file, would need to mock the responses here instead of fetching data & mock it for the instance of VehicleRepository using jest mock.
 
 const file = fs.readFileSync("./repositories/vehicles.json", "utf8");
 const vehicles = JSON.parse(file) as Vehicle[];
-
-console.log(vehicles.length);
 
 test("Get all returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getAll();
@@ -40,6 +38,42 @@ test("Get by trim returns valid vehicle list", () => {
       .length
   );
   expect(Array.isArray(vehicleList));
+});
+
+test("Get list of vehicle models from make returns correct list", () => {
+  const vehicleList = VehicleRepo.getListOfModelsFromMake("BMW");
+  expect(Array.isArray(vehicleList));
+
+  const listOfModels = vehicles.filter(({ make }) => make.toLowerCase() === "BMW".toLowerCase());
+
+  const removeVehicleIfFoundInFilteredList = listOfModels.filter(({ model }) => {
+    if (vehicleList.indexOf(model) > -1) {
+      return false;
+    }
+
+    return true;
+  });
+
+  expect(removeVehicleIfFoundInFilteredList.length).toBe(0);
+});
+
+test("Get list of vehicle trims from model returns correct list", () => {
+  const vehicleList = VehicleRepo.getListOfTrimsFromModel("1 SERIES");
+  expect(Array.isArray(vehicleList));
+
+  const listOfTrims = vehicles.filter(
+    ({ model }) => model.toLowerCase() === "1 SERIES".toLowerCase()
+  );
+
+  const removeVehicleIfFoundInFilteredList = listOfTrims.filter(({ trim }) => {
+    if (vehicleList.indexOf(trim) > -1) {
+      return false;
+    }
+
+    return true;
+  });
+
+  expect(removeVehicleIfFoundInFilteredList.length).toBe(0);
 });
 
 test("Filter by co2 greater than returns valid vehicle list and filters correctly", () => {

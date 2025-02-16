@@ -180,6 +180,26 @@ class VehicleRepository {
 
     return filteredVehicles;
   }
+
+  getListOfModelsFromMake(filterMake: string): Vehicle["model"][] {
+    const filteredVehicles = this._vehicles
+      .filter(({ make }) => make.toLowerCase() === filterMake.toLowerCase())
+      .map(({ model }) => model);
+
+    const uniqueModels = [...new Set(filteredVehicles)];
+
+    return uniqueModels;
+  }
+
+  getListOfTrimsFromModel(filterModel: string): Vehicle["model"][] {
+    const filteredVehicles = this._vehicles
+      .filter(({ model }) => model.toLowerCase() === filterModel.toLowerCase())
+      .map(({ trim }) => trim);
+
+    const uniqueModels = [...new Set(filteredVehicles)];
+
+    return uniqueModels;
+  }
 }
 
 export default VehicleRepository;
