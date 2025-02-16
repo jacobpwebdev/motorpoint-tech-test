@@ -4,6 +4,11 @@ import { FilterQuery, Filters, Vehicle } from "./vehicle-repository.types";
 class VehicleRepository {
   private _vehicles: Vehicle[];
 
+  constructor() {
+    const file = fs.readFileSync("./repositories/vehicles.json", "utf8");
+    this._vehicles = JSON.parse(file);
+  }
+
   private _isCo2GreaterThan(filterValue: number, vehicleInfoValue: Vehicle["co2_level"]): boolean {
     return filterValue < vehicleInfoValue;
   }
@@ -13,7 +18,7 @@ class VehicleRepository {
   }
 
   private _isFuelType(filterValue: string, vehicleInfoValue: Vehicle["fuel_type"]): boolean {
-    return filterValue === vehicleInfoValue;
+    return filterValue.toLowerCase() === vehicleInfoValue.toLowerCase();
   }
 
   private _isEngineSizeGreater(
@@ -30,10 +35,7 @@ class VehicleRepository {
     return filterValue > vehicleInfoValue;
   }
 
-  private _isMileageGreater(
-    filterValue: number,
-    vehicleInfoValue: Vehicle["engine_size"]
-  ): boolean {
+  private _isMileageGreater(filterValue: number, vehicleInfoValue: Vehicle["mileage"]): boolean {
     return filterValue > vehicleInfoValue;
   }
 
@@ -80,11 +82,6 @@ class VehicleRepository {
           return;
       }
     });
-  }
-
-  constructor() {
-    const file = fs.readFileSync("./repositories/vehicles.json", "utf8");
-    this._vehicles = JSON.parse(file);
   }
 
   getAll(): Vehicle[] {

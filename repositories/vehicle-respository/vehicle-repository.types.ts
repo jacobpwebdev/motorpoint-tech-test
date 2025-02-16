@@ -8,7 +8,8 @@ export type Vehicle = {
   fuel_type: "Diesel" | "Unleaded";
   engine_size: number;
   date_first_reg: string;
-  mileage: 11271;
+  mileage: number;
+  price: number;
 };
 
 export enum Filters {
