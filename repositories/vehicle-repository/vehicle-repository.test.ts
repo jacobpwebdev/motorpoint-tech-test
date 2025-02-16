@@ -36,7 +36,8 @@ test("Get by model returns valid vehicle list", () => {
 test("Get by trim returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getByTrim("M140i 5dr [Nav] Step Auto", {});
   expect(vehicleList.length).toEqual(
-    vehicles.filter(({ trim }) => trim.toLowerCase() === "M140i 5dr [Nav] Step Auto").length
+    vehicles.filter(({ trim }) => trim.toLowerCase() === "M140i 5dr [Nav] Step Auto".toLowerCase())
+      .length
   );
   expect(Array.isArray(vehicleList));
 });

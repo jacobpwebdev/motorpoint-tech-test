@@ -122,10 +122,10 @@ class VehicleRepository {
     return filteredVehicles;
   }
 
-  getByTrim(filterModel: string, filters: FilterQuery): Vehicle[] {
+  getByTrim(filterTrim: string, filters: FilterQuery): Vehicle[] {
     const filteredVehicles = this._vehicles.filter(
       (vehicleInfo) =>
-        vehicleInfo.model.toLowerCase() === filterModel.toLowerCase() &&
+        vehicleInfo.trim.toLowerCase() === filterTrim.toLowerCase() &&
         this._applyFilters(filters, vehicleInfo)
     );
 
