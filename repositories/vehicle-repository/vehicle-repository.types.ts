@@ -13,6 +13,7 @@ export type Vehicle = {
 };
 
 export enum Filters {
+  TRIM = "trim",
   PRICEGREATER = "priceGreater",
   PRICELOWER = "priceLower",
   FUEL = "fuel",

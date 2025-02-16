@@ -1,5 +1,5 @@
 import fs from "fs";
-import { Vehicle } from "./repositories/vehicle-respository/vehicle-repository.types";
+import { Vehicle } from "./repositories/vehicle-repository/vehicle-repository.types";
 
 const file = fs.readFileSync("./repositories/vehicles.json", "utf8");
 

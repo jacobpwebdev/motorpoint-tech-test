@@ -1,7 +1,6 @@
 import fs from "fs";
 
-import VehicleRepository from "./vehicle-repository";
-import { Vehicle } from "./vehicle-repository.types";
+import { VehicleRepository, Vehicle } from "@/vehicles";
 
 const VehicleRepo = new VehicleRepository();
 
@@ -13,15 +12,30 @@ const vehicles = JSON.parse(file) as Vehicle[];
 test("Get all returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getAll();
   expect(Array.isArray(vehicleList));
+  expect(vehicleList.length).toEqual(vehicles.length);
 });
 
 test("Get by make returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getByMake("BMW", {});
   expect(Array.isArray(vehicleList));
+  expect(vehicleList.length).toEqual(
+    vehicles.filter(({ make }) => make.toLowerCase() === "bmw").length
+  );
 });
 
-test("Get by make returns valid vehicle list", () => {
-  const vehicleList = VehicleRepo.getByModel("118i", {});
+test("Get by model returns valid vehicle list", () => {
+  const vehicleList = VehicleRepo.getByModel("1 SERIES", {});
+  expect(vehicleList.length).toEqual(
+    vehicles.filter(({ model }) => model.toLowerCase() === "1 SERIES").length
+  );
+  expect(Array.isArray(vehicleList));
+});
+
+test("Get by trim returns valid vehicle list", () => {
+  const vehicleList = VehicleRepo.getByTrim("M140i 5dr [Nav] Step Auto", {});
+  expect(vehicleList.length).toEqual(
+    vehicles.filter(({ trim }) => trim.toLowerCase() === "M140i 5dr [Nav] Step Auto").length
+  );
   expect(Array.isArray(vehicleList));
 });
 

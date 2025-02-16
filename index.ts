@@ -11,6 +11,14 @@ app.get("/cars/:make", (req: Request, res: Response) => {
   res.send("");
 });
 
+app.get("/cars/:model", (req: Request, res: Response) => {
+  res.send("");
+});
+
+app.get("/cars/:trim", (req: Request, res: Response) => {
+  res.send("");
+});
+
 app.listen(port, () => {
   console.log(`Running at http://localhost:${port}`);
 });

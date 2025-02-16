@@ -1,5 +1,5 @@
 import fs from "fs";
-import { FilterQuery, Filters, Vehicle } from "./vehicle-repository.types";
+import { FilterQuery, Filters, Vehicle } from "@/vehicles";
 
 class VehicleRepository {
   private _vehicles: Vehicle[];
@@ -7,6 +7,10 @@ class VehicleRepository {
   constructor() {
     const file = fs.readFileSync("./repositories/vehicles.json", "utf8");
     this._vehicles = JSON.parse(file);
+  }
+
+  private _filterByTrim(filterValue: string, vehicleInfoValue: Vehicle["trim"]): boolean {
+    return filterValue.toLowerCase() === vehicleInfoValue.toLowerCase();
   }
 
   private _isCo2GreaterThan(filterValue: number, vehicleInfoValue: Vehicle["co2_level"]): boolean {
@@ -52,6 +56,8 @@ class VehicleRepository {
       }
 
       switch (key) {
+        case Filters.TRIM:
+          return this._filterByTrim(`${filterValue}`, vehicleInfo.trim);
         case Filters.CO2GREATER:
           return this._isCo2GreaterThan(parseInt(`${filterValue}`), vehicleInfo.co2_level);
 
@@ -107,6 +113,16 @@ class VehicleRepository {
   }
 
   getByModel(filterModel: string, filters: FilterQuery): Vehicle[] {
+    const filteredVehicles = this._vehicles.filter(
+      (vehicleInfo) =>
+        vehicleInfo.model.toLowerCase() === filterModel.toLowerCase() &&
+        this._applyFilters(filters, vehicleInfo)
+    );
+
+    return filteredVehicles;
+  }
+
+  getByTrim(filterModel: string, filters: FilterQuery): Vehicle[] {
     const filteredVehicles = this._vehicles.filter(
       (vehicleInfo) =>
         vehicleInfo.model.toLowerCase() === filterModel.toLowerCase() &&

@@ -25,5 +25,14 @@
     "typescript": "^4.9.5",
     "ts-jest": "^29.2.5"
   
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "baseUrl": "./",
+      "paths": {
+        "@/vehicles/*": ["repositories/vehicle-repository"]
+      }
+    }
   }
 }
