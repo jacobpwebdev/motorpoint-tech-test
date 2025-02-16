@@ -48,7 +48,7 @@ class VehicleRepository {
   }
 
   private _applyFilters(filters: FilterQuery, vehicleInfo: Vehicle) {
-    Object.keys(filters).forEach((key) => {
+    return Object.keys(filters).every((key) => {
       const filterValue = filters[key as keyof typeof filters];
       if (!filterValue) {
         // if empty value is passed for a filter, return true to NOT filter on that value.

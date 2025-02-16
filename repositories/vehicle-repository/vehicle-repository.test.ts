@@ -9,6 +9,8 @@ const VehicleRepo = new VehicleRepository();
 const file = fs.readFileSync("./repositories/vehicles.json", "utf8");
 const vehicles = JSON.parse(file) as Vehicle[];
 
+console.log(vehicles.length);
+
 test("Get all returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getAll();
   expect(Array.isArray(vehicleList));
@@ -26,7 +28,7 @@ test("Get by make returns valid vehicle list", () => {
 test("Get by model returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getByModel("1 SERIES", {});
   expect(vehicleList.length).toEqual(
-    vehicles.filter(({ model }) => model.toLowerCase() === "1 SERIES").length
+    vehicles.filter(({ model }) => model.toLowerCase() === "1 SERIES".toLowerCase()).length
   );
   expect(Array.isArray(vehicleList));
 });
