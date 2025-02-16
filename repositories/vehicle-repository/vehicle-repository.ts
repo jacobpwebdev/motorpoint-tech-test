@@ -91,7 +91,7 @@ class VehicleRepository {
           return this._isPriceGreater(parseInt(`${filterValue}`), vehicleInfo.price);
 
         case Filters.PRICELOWER:
-          return this._isPriceGreater(parseInt(`${filterValue}`), vehicleInfo.price);
+          return this._isPriceLower(parseInt(`${filterValue}`), vehicleInfo.price);
 
         case Filters.TRANSMISSION:
           return;
