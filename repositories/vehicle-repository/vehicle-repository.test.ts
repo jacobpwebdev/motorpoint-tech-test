@@ -11,13 +11,17 @@ const vehicles = JSON.parse(file) as Vehicle[];
 
 test("Get all returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getAll();
+
   expect(Array.isArray(vehicleList));
+
   expect(vehicleList.length).toEqual(vehicles.length);
 });
 
 test("Get by make returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getByMake("BMW", {});
+
   expect(Array.isArray(vehicleList));
+
   expect(vehicleList.length).toEqual(
     vehicles.filter(({ make }) => make.toLowerCase() === "bmw").length
   );
@@ -25,19 +29,23 @@ test("Get by make returns valid vehicle list", () => {
 
 test("Get by model returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getByModel("1 SERIES", {});
+
+  expect(Array.isArray(vehicleList));
+
   expect(vehicleList.length).toEqual(
     vehicles.filter(({ model }) => model.toLowerCase() === "1 SERIES".toLowerCase()).length
   );
-  expect(Array.isArray(vehicleList));
 });
 
 test("Get by trim returns valid vehicle list", () => {
   const vehicleList = VehicleRepo.getByTrim("M140i 5dr [Nav] Step Auto", {});
+
+  expect(Array.isArray(vehicleList));
+
   expect(vehicleList.length).toEqual(
     vehicles.filter(({ trim }) => trim.toLowerCase() === "M140i 5dr [Nav] Step Auto".toLowerCase())
       .length
   );
-  expect(Array.isArray(vehicleList));
 });
 
 test("Get list of vehicle models from make returns correct list", () => {
@@ -80,6 +88,7 @@ test("Filter by co2 greater than returns valid vehicle list and filters correctl
   const vehicleList = VehicleRepo.getAllFiltered({
     co2Greater: 114,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(({ co2_level }) => co2_level > 114);
@@ -90,6 +99,7 @@ test("Filter by co2 less than returns valid vehicle list and filters correctly",
   const vehicleList = VehicleRepo.getAllFiltered({
     co2Lower: 114,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(({ co2_level }) => co2_level < 114);
@@ -100,6 +110,7 @@ test("Filter by engine size greater than returns valid vehicle list and filters 
   const vehicleList = VehicleRepo.getAllFiltered({
     engineSizeGreater: 1995,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(({ engine_size }) => engine_size > 1995);
@@ -110,6 +121,7 @@ test("Filter by engine size smaller than returns valid vehicle list and filters 
   const vehicleList = VehicleRepo.getAllFiltered({
     engineSizeLower: 1995,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(({ engine_size }) => engine_size < 1995);
@@ -120,6 +132,7 @@ test("Filter by fuel type returns valid vehicle list and filters correctly", () 
   const vehicleList = VehicleRepo.getAllFiltered({
     fuel: "unleaded",
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(
@@ -132,6 +145,7 @@ test("Filter by mileage greater than returns valid vehicle list and filters corr
   const vehicleList = VehicleRepo.getAllFiltered({
     mileageGreater: 20114,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(({ mileage }) => mileage > 20114);
@@ -142,6 +156,7 @@ test("Filter by mileage lower than returns valid vehicle list and filters correc
   const vehicleList = VehicleRepo.getAllFiltered({
     mileageLower: 20114,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(({ mileage }) => mileage < 20114);
@@ -152,6 +167,7 @@ test("Filter by price greater than returns valid vehicle list and filters correc
   const vehicleList = VehicleRepo.getAllFiltered({
     priceGreater: 15499,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(({ price }) => price > 15499);
@@ -162,6 +178,7 @@ test("Filter by price lower than returns valid vehicle list and filters correctl
   const vehicleList = VehicleRepo.getAllFiltered({
     priceLower: 15499,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(({ price }) => price < 15499);
@@ -172,6 +189,7 @@ test("Filter by transmission returns valid vehicle list and filters correctly", 
   const vehicleList = VehicleRepo.getAllFiltered({
     transmission: "automatic",
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(
@@ -184,6 +202,7 @@ test("Filter by year greater returns valid vehicle list and filters correctly", 
   const vehicleList = VehicleRepo.getAllFiltered({
     yearGreater: 2018,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(
@@ -196,6 +215,7 @@ test("Filter by year lower returns valid vehicle list and filters correctly", ()
   const vehicleList = VehicleRepo.getAllFiltered({
     yearLower: 2018,
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(
@@ -208,6 +228,7 @@ test("Filter by colour returns valid vehicle list and filters correctly", () => 
   const vehicleList = VehicleRepo.getAllFiltered({
     colour: ["red", "black"],
   });
+
   expect(Array.isArray(vehicleList));
 
   const filteredDataSet = vehicles.filter(

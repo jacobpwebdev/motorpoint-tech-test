@@ -1,7 +1,7 @@
 import fs from "fs";
 import { FilterQuery, Filters, Vehicle } from "@/vehicles";
 
-class VehicleRepository {
+export class VehicleRepository {
   private _vehicles: Vehicle[];
 
   constructor() {
@@ -201,5 +201,3 @@ class VehicleRepository {
     return uniqueModels;
   }
 }
-
-export default VehicleRepository;
