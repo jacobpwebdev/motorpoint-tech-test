@@ -113,7 +113,7 @@ test("Filter by engine size greater than returns valid vehicle list and filters 
 
   expect(Array.isArray(vehicleList));
 
-  const filteredDataSet = vehicles.filter(({ engine_size }) => engine_size > 1995);
+  const filteredDataSet = vehicles.filter(({ engine_size }) => engine_size >= 1995);
   expect(vehicleList.length).toEqual(filteredDataSet.length);
 });
 
@@ -124,7 +124,7 @@ test("Filter by engine size smaller than returns valid vehicle list and filters 
 
   expect(Array.isArray(vehicleList));
 
-  const filteredDataSet = vehicles.filter(({ engine_size }) => engine_size < 1995);
+  const filteredDataSet = vehicles.filter(({ engine_size }) => engine_size <= 1995);
   expect(vehicleList.length).toEqual(filteredDataSet.length);
 });
 
