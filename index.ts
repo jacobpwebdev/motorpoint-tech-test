@@ -17,7 +17,7 @@ const sendError = (res: Response, errorMessage?: string) => {
 };
 
 // Catch errors and send error message if fails
-const handleRequest = (res: Response, callback: () => void) => {
+const handleRequest = (res: Response, callback: () => Express.Response) => {
   try {
     // to test error handling use this
     //throw new Error("An error occurred");
