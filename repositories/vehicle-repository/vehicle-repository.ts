@@ -29,14 +29,14 @@ export class VehicleRepository {
     filterValue: number,
     vehicleInfoValue: Vehicle["engine_size"]
   ): boolean {
-    return filterValue < vehicleInfoValue;
+    return filterValue <= vehicleInfoValue;
   }
 
   private _isEngineSizeLower(
     filterValue: number,
     vehicleInfoValue: Vehicle["engine_size"]
   ): boolean {
-    return filterValue > vehicleInfoValue;
+    return filterValue >= vehicleInfoValue;
   }
 
   private _isMileageGreater(filterValue: number, vehicleInfoValue: Vehicle["mileage"]): boolean {
@@ -48,11 +48,11 @@ export class VehicleRepository {
   }
 
   private _isPriceGreater(filterValue: number, vehicleInfoValue: Vehicle["price"]): boolean {
-    return vehicleInfoValue > filterValue;
+    return vehicleInfoValue >= filterValue;
   }
 
   private _isPriceLower(filterValue: number, vehicleInfoValue: Vehicle["price"]): boolean {
-    return vehicleInfoValue < filterValue;
+    return vehicleInfoValue <= filterValue;
   }
 
   private _isSameTransmission(
@@ -69,20 +69,29 @@ export class VehicleRepository {
     // technically this is inefficient, but I didn't want to not do this and make it look like I don't know how to work with dates.
     // A way of doing it in this scenario would just be to split the string and string compare, as then it wouldn't be creating a date object within a loop which could cause performance issues.
     // If wanting to stick with using Date objects, i would use Date fns, it's quicker and has already solved all the issues you'll come across.
-    const [day, month, year] = vehicleInfoValue.split("/").map((val) => parseInt(val));
+    try {
+      const [day, month, year] = vehicleInfoValue.split("/").map((val) => parseInt(val));
 
-    return new Date(year, month - 1, day).getFullYear() >= new Date(filterValue).getFullYear();
+      return new Date(year, month - 1, day).getFullYear() >= new Date(filterValue).getFullYear();
+    } catch (e) {
+      throw new TypeError("Invalid date format supplied. Please use the format YYYY.");
+    }
   }
 
   private _isYearLower(filterValue: string, vehicleInfoValue: Vehicle["date_first_reg"]): boolean {
     // technically this is inefficient, but I didn't want to not do this and make it look like I don't know how to work with dates.
     // A way of doing it in this scenario would just be to split the string and string compare, as then it wouldn't be creating a date object within a loop which could cause performance issues.
     // If wanting to stick with using Date objects, i would use Date fns, it's quicker and has already solved all the issues you'll come across.
-    const [day, month, year] = vehicleInfoValue.split("/").map((val) => parseInt(val));
+    try {
+      const [day, month, year] = vehicleInfoValue.split("/").map((val) => parseInt(val));
 
-    return new Date(year, month - 1, day).getFullYear() <= new Date(filterValue).getFullYear();
+      return new Date(year, month - 1, day).getFullYear() <= new Date(filterValue).getFullYear();
+    } catch (e) {
+      throw new TypeError("Invalid date format supplied. Please use the format YYYY.");
+    }
   }
 
+  // through query params it can be passed like this &colour=white&colour=black
   private _isSameColour(filterValue: string[], vehicleInfoValue: Vehicle["colour"]): boolean {
     return filterValue.some((colour) =>
       vehicleInfoValue.toLowerCase().includes(colour.toLowerCase())

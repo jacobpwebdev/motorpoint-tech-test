@@ -10,8 +10,10 @@ const sendVehicleList = (res: Response, vehicles: Vehicle[]) => {
   return res.status(200).send({ vehicles: vehicles });
 };
 
-const sendError = (res: Response) => {
-  return res.status(500).send("An error occurred when processing your request. Please try again.");
+const sendError = (res: Response, errorMessage?: string) => {
+  return res
+    .status(500)
+    .send(errorMessage || "An error occurred when processing your request. Please try again.");
 };
 
 // Catch errors and send error message if fails
@@ -21,6 +23,11 @@ const handleRequest = (res: Response, callback: () => void) => {
     //throw new Error("An error occurred");
     return callback();
   } catch (e: unknown) {
+    // Get error message if there is one
+    if (e instanceof Error) {
+      return sendError(res, e.message);
+    }
+
     return sendError(res);
   }
 };
