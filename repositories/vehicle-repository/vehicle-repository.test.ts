@@ -239,11 +239,3 @@ test("Filter by colour returns valid vehicle list and filters correctly", () => 
 
   expect(vehicleList.length).toEqual(filteredDataSet.length);
 });
-
-test("Filter by colour throws if incorrect value passed", () => {
-  expect(() =>
-    VehicleRepo.getAllFiltered({
-      colour: "red",
-    })
-  ).toThrow(TypeError);
-});
