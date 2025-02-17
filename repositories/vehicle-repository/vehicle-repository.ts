@@ -146,10 +146,9 @@ export class VehicleRepository {
           return this._isYearLower(`${filterValue}`, vehicleInfo.date_first_reg);
 
         case Filters.COLOUR:
-          if (!Array.isArray(filterValue)) {
-            throw new TypeError("Invalid value supplied for colour, supply list of colours.");
-          }
-          return this._isSameColour(filterValue, vehicleInfo.colour);
+          const colourArr = Array.isArray(filterValue) ? filterValue : [`${filterValue}`];
+
+          return this._isSameColour(colourArr, vehicleInfo.colour);
       }
     });
   }

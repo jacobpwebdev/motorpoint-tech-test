@@ -1,7 +1,7 @@
 import "module-alias/register";
 
 import { Vehicle, VehicleRepository } from "@/vehicles";
-import express, { Express, NextFunction, Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 
 const app: Express = express();
 const port = 3000;

@@ -1,3 +1,5 @@
+//File just used for debugging purposes, easily output values from data to see a list of them.
+
 import fs from "fs";
 import { Vehicle } from "./repositories/vehicle-repository/vehicle-repository.types";
 
