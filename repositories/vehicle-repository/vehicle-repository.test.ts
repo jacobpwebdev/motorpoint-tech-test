@@ -205,9 +205,10 @@ test("Filter by year greater returns valid vehicle list and filters correctly", 
 
   expect(Array.isArray(vehicleList));
 
-  const filteredDataSet = vehicles.filter(
-    ({ date_first_reg }) => new Date(date_first_reg).getFullYear() > 2018
-  );
+  const filteredDataSet = vehicles.filter(({ date_first_reg }) => {
+    const year = date_first_reg.split("/")[2];
+    return new Date(year).getFullYear() >= 2018;
+  });
   expect(vehicleList.length).toEqual(filteredDataSet.length);
 });
 
@@ -218,9 +219,10 @@ test("Filter by year lower returns valid vehicle list and filters correctly", ()
 
   expect(Array.isArray(vehicleList));
 
-  const filteredDataSet = vehicles.filter(
-    ({ date_first_reg }) => new Date(date_first_reg).getFullYear() < 2018
-  );
+  const filteredDataSet = vehicles.filter(({ date_first_reg }) => {
+    const year = date_first_reg.split("/")[2];
+    return new Date(year).getFullYear() <= 2018;
+  });
   expect(vehicleList.length).toEqual(filteredDataSet.length);
 });
 
